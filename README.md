@@ -8,6 +8,7 @@ Lean skills for building Roblox games through the Studio MCP.
 | `roblox-mcp-lean` | No full-tree reads, surgical edits, one build+verify call, 2-try failure cap |
 | `roblox-code-structure` | Default Luau layout, server-authoritative remotes, Config, cleanup |
 | `roblox-ui-live` | UI as live named instances in StarterGui + controller. Style comes from your prompt |
+| `roblox-optimization` | Measure-first perf rules: per-frame, memory, network, mobile. Includes Scheduler, Cleaner, ObjectPool |
 
 ## Install
 ```
