@@ -25,7 +25,7 @@ It copies the skills to `~/.claude/skills`, the output style to `~/.claude/outpu
 
 ## Make `ihaveadhd` always on (use all three; each covers a gap)
 1. **CLAUDE.md block** (installed above): loaded every session, tells Claude to follow the style and consult the router.
-2. **Output style**: in Claude Code run `/output-style ihaveadhd` (or set `"outputStyle": "ihaveadhd"` in `~/.claude/settings.json`). This changes the system prompt itself, the strongest option.
+2. **Output style**: restart Claude Code (it reads style files at startup), then run `/output-style ihaveadhd`. That saves the choice for the current project only; to make it global put `"outputStyle": "ihaveadhd"` in `~/.claude/settings.json` (the value is case-sensitive). Built-in alternatives: `Concise` (short replies) and `Proactive` (acts without asking on routine decisions). Docs: an output style is an instruction, not a guarantee. `keep-coding-instructions` only matters on the full system prompt; if styles seem ignored, set `CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=0`.
 3. **The skill** itself covers the details and the "expand when asked" rule.
 
 Skills load by description match and are never 100% guaranteed; the CLAUDE.md block + output style are what make it reliable.

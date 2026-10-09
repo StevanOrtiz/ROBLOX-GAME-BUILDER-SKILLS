@@ -8,7 +8,7 @@ description: Review a Roblox game project in Studio via the MCP - one scripted s
 Principle: **scan with code, read with judgment.** One `execute_luau` replaces dozens of grep/read calls. Hits are heuristics (candidates); confirm each by reading that line before reporting it.
 
 ## Workflow
-1. **Scan (1 call).** Run `references/scan.lua` through `execute_luau`. It returns script counts, part count, remote count, and up to 6 `path:line` examples per category. Do not read the whole tree or every script first (see roblox-mcp-lean).
+1. **Scan (1 call).** Run `references/scan.lua` through `execute_luau` with `datamodel_type = Edit`. It returns script counts, part count, remote count, and up to 6 `path:line` examples per category. Do not read the whole tree or every script first (see roblox-mcp-lean).
 2. **Triage.** Order: remote_unvalidated > server_logic_exposed > placement > unstored_connect > multi_hot_connect > rest. Read only those lines (`script_read` on the range) and drop false positives.
 3. **Architecture pass (judgment).** Read at most: the bootstrap(s), one Service, one Controller, `Config`. Use `roblox-architecture` as the yardstick.
 4. **Report** (format below).

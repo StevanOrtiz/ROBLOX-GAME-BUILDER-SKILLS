@@ -36,6 +36,6 @@ Read only the matching section of `references/genres.md` (one genre), then follo
 - Games: incremental simulators, simulator/tycoon, obby/parkour/maps, combat/shooter/PvP, RPG/adventure.
 - Platforms: mobile, PC, console **equally**. Design for touch + mouse/keyboard + gamepad; use the mobile numbers as the performance floor.
 - Autonomy: **apply directly**, report in one line. Ask only before destructive or irreversible actions (deleting scripts/instances, overwriting user content, data migrations) or when a requirement is truly ambiguous and changes the architecture.
-- MCP: Roblox Studio **built-in** server (`execute_luau`, `script_read`, `multi_edit`, `script_grep`, `search_game_tree`, `inspect_instance`, `start_stop_play`, `get_console_output`, `get_studio_state`). If a tool isn't available, check what is and adapt; don't assume third-party tools.
+- MCP: Roblox Studio **built-in** server (`execute_luau` with `datamodel_type` Edit/Server/Client, `script_read`, `multi_edit`, `script_search`, `script_grep`, `search_game_tree`, `inspect_instance`, `start_stop_play`, `get_console_output`, `get_studio_state`, `screen_capture`, plus asset tools `search_asset`/`insert_asset`/`generate_*`). If a tool isn't available, check what is and adapt; don't assume third-party tools.
 - Workflow: Studio + MCP only, no Rojo/Wally/Knit. State lives in the place; `GAMEMAP.md` indexes it.
 - Language: replies in Spanish. Code identifiers and log tags in English. In-game text: ask once per game, default to the user's current language.

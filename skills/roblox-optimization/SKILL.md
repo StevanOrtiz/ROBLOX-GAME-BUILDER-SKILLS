@@ -15,7 +15,7 @@ No numbers = no optimization. Pick the tool by symptom:
 | High ping / data | F9 > Stats (send/recv KB/s) | Which remote fires most |
 
 - Label your own code so it shows in MicroProfiler: `debug.profilebegin("Name") ... debug.profileend()`.
-- Via MCP you can't open the profiler. Ask the user for the MicroProfiler finding or F9 numbers, or print `os.clock()` deltas / `Stats` with a `[Perf]` tag and read `get_console_output` once. `execute_luau` measures the plugin DataModel, not the running game.
+- Via MCP you can't open the profiler. Ask the user for the MicroProfiler finding or F9 numbers, or print `os.clock()` deltas / `Stats` with a `[Perf]` tag and read `get_console_output` once. `execute_luau` with `datamodel_type = Server` or `Client` can run inside the running game during Play; `Edit` measures the edit session, not gameplay.
 - Fix the biggest bar only. Re-measure once.
 
 ## 1. Per-frame code
@@ -41,7 +41,7 @@ No numbers = no optimization. Pick the tool by symptom:
 - Send on change, not every frame. Send deltas (`{added, removed}`), not full state.
 - Related values that change together go in one call. Unrelated ones stay separate.
 - Shrink payloads: arrays or numeric ids over string-keyed tables; `buffer` for dense data; no Instance refs when an id works.
-- `UnreliableRemoteEvent` for lossy, high-frequency, stale-is-fine data (cosmetic positions). Keep each packet small (~900 bytes limit), 10-20 Hz, never for gameplay-critical events.
+- `UnreliableRemoteEvent` for lossy, high-frequency, stale-is-fine data (cosmetic positions). Docs: messages over 1,000 bytes may be dropped, and neither delivery nor order is guaranteed. Keep packets small, 10-20 Hz, include a sequence number/timestamp and ignore older ones, never for gameplay-critical events.
 - Visual-only effects (tweens, particle colors) run on the client. A server-side property change replicates to everyone.
 - Rate-limit and validate remote handlers (see roblox-code-structure).
 
@@ -65,7 +65,7 @@ Texture memory depends on decoded resolution, not file format.
 - Treat mobile as the floor. Targets: ~30-50% fewer parts and lighter effects than desktop, as a starting point.
 - Detect: `UserInputService.TouchEnabled and not KeyboardEnabled`. Halve particle rates, drop non-essential emitters.
 - Touch targets >= 44x44; no hover-only UI.
-- `StreamingTargetRadius/MinRadius` are Workspace settings; set them in Studio/server. Don't assume a LocalScript can tune them per device.
+- `StreamingTargetRadius/MinRadius` are documented as Not Scriptable: set them in Studio's Workspace properties, not from code, and not per device.
 - Memory limits vary by device. Watch `Stats:GetTotalMemoryUsageMb()` trend, not one fixed number. Final check on real low-RAM hardware.
 
 ## 6. Don't

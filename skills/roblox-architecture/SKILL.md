@@ -5,7 +5,7 @@ description: Decision reference for how a Roblox game is organized when built li
 
 # Roblox architecture (Studio + MCP, no Rojo)
 
-Default: one bootstrap script per side + Service/Controller ModuleScripts. No framework (Knit is third-party, needs a package manager, and is no longer actively maintained - verify before adopting). Existing project structure wins; match it.
+Default: one bootstrap script per side + Service/Controller ModuleScripts. No framework (Knit is third-party, needs a package manager, and its official repository is archived: no more updates). Existing project structure wins; match it.
 Naming matches `roblox-code-structure`: `Shared/`, `Services/`, `Controllers/`, `Remotes/`.
 
 ## 1. Where things go

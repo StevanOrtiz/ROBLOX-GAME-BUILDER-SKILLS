@@ -102,7 +102,7 @@ local function analyze(files, env)
 	-- Place / performance
 	if env.placeId == 0 then out("INFO", "Place not published yet", "live DataStore/purchase tests need a published place") end
 	if env.parts > 10000 and not env.streaming then out("WARN", "StreamingEnabled off with " .. env.parts .. " parts") else out("PASS", "Parts " .. env.parts .. ", streaming " .. tostring(env.streaming)) end
-	if env.streaming then out("INFO", "Streaming radii", "min=" .. env.minR .. " target=" .. env.targetR) end
+	if env.streaming then out("INFO", "Streaming radii", "min=" .. tostring(env.minR) .. " target=" .. tostring(env.targetR) .. " (Not Scriptable: verify in Workspace properties)") end
 	out("INFO", "MaxPlayers", tostring(env.maxPlayers))
 	out("INFO", "Unanchored parts", tostring(env.unanchored))
 
@@ -155,7 +155,8 @@ local function collect()
 	local ws = workspace
 	return files, {
 		placeId = game.PlaceId, streaming = ws.StreamingEnabled,
-		minR = ws.StreamingMinRadius, targetR = ws.StreamingTargetRadius,
+		minR = select(2, pcall(function() return ws.StreamingMinRadius end)),       -- documented Not Scriptable
+		targetR = select(2, pcall(function() return ws.StreamingTargetRadius end)), -- falls back to an error string
 		maxPlayers = game:GetService("Players").MaxPlayers, parts = parts, unanchored = unanchored, gui = gui,
 	}
 end

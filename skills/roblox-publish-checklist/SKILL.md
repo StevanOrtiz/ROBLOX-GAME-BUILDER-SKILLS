@@ -9,7 +9,7 @@ Two layers: **scan what code can verify, ask only about what it can't.** Don't r
 
 ## Workflow
 1. Read `PUBLISH.md` (project root) if it exists: skip items already `[x]` unless the user says the area changed.
-2. **Preflight (1 call):** run `references/preflight.lua` via `execute_luau`. Output lines are `FAIL / WARN / INFO / PASS`. Confirm each FAIL/WARN by reading the cited `path:line` before reporting; they are heuristics.
+2. **Preflight (1 call):** run `references/preflight.lua` via `execute_luau` with `datamodel_type = Edit`. Output lines are `FAIL / WARN / INFO / PASS`. Confirm each FAIL/WARN by reading the cited `path:line` before reporting; they are heuristics.
 3. **Manual items:** walk the sections below in order, only the unticked `[H]`/`[L]` ones, in batches of 3-5 yes/no questions. Record answers in `PUBLISH.md` with date + note.
 4. **Verdict:** 
    - **NO-GO**: any confirmed FAIL or any unticked Blocker.
@@ -27,7 +27,7 @@ Tags: **[A]** preflight covers it, **[H]** human check, **[L]** needs a publishe
 - S [A] `UpdateAsync` (not `SetAsync`) for saves, so concurrent writers don't clobber.
 - S [A][H] Session lock so one profile isn't live on two servers (lock in `UpdateAsync` with a timeout for crashed servers, or a proven library like ProfileStore). Essential for economy/progression games.
 - S [A] Data version field + migration path.
-- S [H] Request budget respected: limits scale with players and change over time, check current docs; autosave every few minutes, never per-frame.
+- S [H] Request budget respected. Docs today: per server GetAsync and SetAsync `60 + numPlayers x 40` per minute (ordered stores write less), value up to 4,194,304 characters per key; limits can change, check the docs. Autosave every few minutes, never per-frame.
 - S [H] Recovery plan for corrupted data (versioned DataStore keys, backups).
 - N [H] Leaderboards use OrderedDataStore, updated at intervals.
 
@@ -50,7 +50,7 @@ Tags: **[A]** preflight covers it, **[H]** human check, **[L]** needs a publishe
 
 ## Performance
 - B [H] Core scenes hold 30+ FPS on a mid-range phone, or mobile is excluded in Game Settings.
-- S [A] StreamingEnabled if the map is large (parts > ~10k); radii sensible.
+- S [A][H] StreamingEnabled if the map is large (parts > ~10k). Radii are Not Scriptable: the preflight can't read them, check the Workspace properties yourself.
 - S [H] MicroProfiler: sustained frame time under 16.6 ms (60 FPS) or 33 ms (30 FPS); isolated spikes OK, repeated ones aren't. Fixes: `roblox-optimization`.
 - S [H] Memory stable over a 20+ min session (no per-join/per-spawn leaks).
 - S [A] No `print` spam, no deprecated `wait/spawn/delay` in hot paths.
@@ -91,7 +91,7 @@ Tags: **[A]** preflight covers it, **[H]** human check, **[L]** needs a publishe
 - S [H] Group-rank gated features tested with real ranks.
 
 ## Analytics and operations
-- S [H] Key events tracked: join/session length, first-time vs returning, tutorial completion, core loop actions, purchases, drop-off points. Roblox's dashboard covers retention and funnels; custom events through `AnalyticsService` (confirm the current API).
+- S [H] Key events tracked: join/session length, first-time vs returning, tutorial completion, core loop actions, purchases, drop-off points. Roblox's dashboard covers retention and funnels; custom events through `AnalyticsService` (`LogCustomEvent`, `LogEconomyEvent`, `LogFunnelStepEvent`, `LogOnboardingFunnelStepEvent`, `LogProgression*Event`; the old `Fire*` methods are deprecated).
 - S [H] Error visibility: server `ScriptContext.Error` / `LogService` logged with context, or the Creator Dashboard performance/error reports.
 - S [H] Publish to a **staging place/experience** first; know how to roll back via version history.
 - N [H] Plan for updates: shutdown notice (MessagingService) for breaking changes.

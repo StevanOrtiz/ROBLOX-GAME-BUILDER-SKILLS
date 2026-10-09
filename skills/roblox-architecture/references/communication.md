@@ -52,4 +52,4 @@ RunService.RenderStepped:Connect(function(dt)
 	CursorPosition:FireServer(UserInputService:GetMouseLocation())
 end)
 ```
-Server validates `typeof(pos) == "Vector2"` and clamps before relaying. Keep packets small (~900 bytes limit).
+Server validates `typeof(pos) == "Vector2"` and clamps before relaying. Docs: payloads over 1,000 bytes may be dropped; delivery and order are not guaranteed, so include a sequence number and ignore older messages.

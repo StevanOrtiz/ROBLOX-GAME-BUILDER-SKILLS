@@ -35,8 +35,8 @@ StarterGui.ShopGui | ScreenGui | shop UI (controller: Controllers.ShopController
 - Make scripts idempotent: find-or-create by name, set properties, so a retry is harmless.
 - End the same script with its own assertions and `return` a short summary (counts, missing names, created paths). Never return dumps of instances.
 - Wrap in `pcall`; on failure return `err` text, not silence.
-- Yielding (`task.wait`, `WaitForChild` w/o timeout, `PreloadAsync`) drops ALL output. Don't yield; split the call or use `task.delay` and return.
-- It runs in the plugin DataModel, not the running game. Live game state: have game code print tagged lines, read with `get_console_output`.
+- Don't yield inside `execute_luau` (`task.wait`, `WaitForChild` w/o timeout, `PreloadAsync`): a community pack reported that output is lost when a script yields (not stated in the official docs). Split the call or use `task.delay` and return.
+- `execute_luau` takes a `datamodel_type`: `Edit` (the open place: builds, scans, property changes), `Server` or `Client` (the running game during Play). Use `Edit` for building; `Server`/`Client` to inspect live state. For logs over time, have game code print tagged lines and read `get_console_output`.
 - Batch independent MCP calls in one turn.
 
 ## 5. Test budget

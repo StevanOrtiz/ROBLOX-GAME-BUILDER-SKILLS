@@ -37,7 +37,7 @@ description: Rules and ready modules for Roblox character/NPC animation (Animato
 - Chain with `tween.Completed:Once(...)` or `:Wait()` inside a `task.spawn`, not nested `:Connect`.
 - Re-triggering: cancel the running tween first and capture the original value **once**. (Capturing "original" mid-tween makes a flash stick white.)
 - Don't tween `Size` on welded/unanchored assemblies (breaks joints). Use `Model:ScaleTo`, or tween an anchored visual part.
-- Hit flash: use a `Highlight` fill tween on the model, not Color mutation. Highlights have a concurrent cap (~31); verify.
+- Hit flash: use a `Highlight` fill tween on the model, not Color mutation. Keep few Highlights active at once (the docs page doesn't state a cap, but they are limited).
 
 ## Lighting / post-processing
 - Static mood is scene setup: apply once via `execute_luau` with `references/lighting-presets.lua` (idempotent), not a runtime script. One of each PostEffect per class.
