@@ -25,7 +25,7 @@ end
 
 for _, entry in loaded do
 	if entry.mod.Init then
-		local ok, err = xpcall(entry.mod.Init :: () -> (), trace)
+		local ok, err = xpcall(entry.mod.Init :: () -> any, trace)
 		if not ok then warn(`[Main] {entry.name}.Init failed: {err}`) end
 	end
 end
@@ -34,7 +34,7 @@ for _, entry in loaded do
 	if entry.mod.Start then
 		-- spawn so one yielding Start can't block the others
 		task.spawn(function()
-			local ok, err = xpcall(entry.mod.Start :: () -> (), trace)
+			local ok, err = xpcall(entry.mod.Start :: () -> any, trace)
 			if not ok then warn(`[Main] {entry.name}.Start failed: {err}`) end
 		end)
 	end
