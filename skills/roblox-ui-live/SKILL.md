@@ -39,6 +39,7 @@ Tag or attribute key surfaces (`UIRole = "Primary" | "Surface" | "Text" | "Accen
 user action -> Controller -> Remote (intent) -> Server validates -> state back (Remote/Attribute) -> Controller sets .Text/.Visible
 ```
 - Buttons: `.Activated` (touch, gamepad, mouse), not `MouseButton1Click`.
+- Gamepad/console: key buttons `Selectable = true`; on open set `GuiService.SelectedObject` to the first button, clear on close.
 - One open/close function per window; tween optional; only one modal open at a time.
 - List items: clone `Templates/<Thing>Template`, name the clone by item id, parent to `ItemList`; clear and rebuild on state change.
 - UI never decides truth (prices, ownership). It displays server state.

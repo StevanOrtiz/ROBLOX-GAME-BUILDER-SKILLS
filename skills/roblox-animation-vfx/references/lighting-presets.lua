@@ -33,14 +33,25 @@ local function ensure(className: string): any
 	return created
 end
 
+local EFFECTS = { "ColorCorrectionEffect", "BloomEffect", "SunRaysEffect", "DepthOfFieldEffect", "BlurEffect" }
+
 local preset = PRESETS[PRESET]
 assert(preset, "unknown preset " .. PRESET)
 apply(Lighting, preset.Lighting)
 local set = { "Lighting" }
 for className, props in preset do
 	if className ~= "Lighting" then
-		apply(ensure(className), props)
+		local inst = ensure(className)
+		apply(inst, props)
+		if className ~= "Atmosphere" then inst.Enabled = true end
 		table.insert(set, className)
+	end
+end
+-- effects left over from another preset must not leak into this one
+for _, className in EFFECTS do
+	if not preset[className] then
+		local old = Lighting:FindFirstChildOfClass(className :: any)
+		if old then (old :: any).Enabled = false end
 	end
 end
 return PRESET .. ": " .. table.concat(set, ", ")

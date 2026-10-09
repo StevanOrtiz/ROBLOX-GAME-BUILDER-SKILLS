@@ -14,6 +14,13 @@ Goal: fewest calls, smallest reads, no guess loops. Change only what was asked.
 
 ## 2. Keep `GAMEMAP.md` (project root, <= 60 lines)
 One line per thing that matters: `Path | Class | role`. Scripts, ScreenGuis, Remotes, Config.
+Format (one line each):
+```
+ServerScriptService.Main | Script | server bootstrap
+ServerScriptService.Services.ShopService | ModuleScript | buy/sell, validates BuyItem
+ReplicatedStorage.Remotes.BuyItem | RemoteEvent | client intent -> ShopService
+StarterGui.ShopGui | ScreenGui | shop UI (controller: Controllers.ShopController)
+```
 - Read it instead of the tree. Update it in the same turn you create/rename/delete something.
 - It may be stale: before relying on a path, verify that ONE path inside the build/edit call (`FindFirstChild` chain), not by re-reading the tree.
 - No file system for the place? Keep the map in the chat's first reply as the compact source and refresh the changed lines only.
@@ -44,5 +51,12 @@ One line per thing that matters: `Path | Class | role`. Scripts, ScreenGuis, Rem
 - Still failing -> stop. Report in 1-2 lines: error + what you tried + your best hypothesis. No third blind retry.
 - "Target is not reachable" / no Studio found -> `list_roblox_studios` once, then tell the user to re-toggle Studio's MCP server. Don't loop. Often a Studio-version issue, not your code.
 
-## 7. Report
-Per `ihaveadhd` if present: `Done: <what>`. Paths changed. Nothing else.
+## 7. Autonomy and report
+- Apply requested changes directly. Ask only before destructive or irreversible actions (deleting scripts/instances, overwriting user content, data migrations) or when an ambiguity changes the architecture.
+- Report per `ihaveadhd`: `Done: <what>`, paths changed, nothing else.
+
+## 8. Built-in Studio MCP quirks
+- The "Enable Studio as MCP server" toggle can turn itself off after a Studio update. Check it first when nothing connects.
+- Connections can drop every few minutes. One `list_roblox_studios` / `get_studio_state`, then ask the user to re-toggle; don't loop.
+- Play-mode tools returning "Target is not reachable" right after an update are usually a Studio regression, not your code.
+- Only one MCP server connected at a time.

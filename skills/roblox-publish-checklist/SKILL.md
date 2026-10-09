@@ -58,6 +58,7 @@ Tags: **[A]** preflight covers it, **[H]** human check, **[L]** needs a publishe
 
 ## Mobile and UI
 - B [H] All core actions work with touch only: no hover, no right-click, no keyboard-only.
+- B [H] Gamepad/console: every menu reachable and closable with a controller, core actions bound.
 - S [A] UI sized with Scale + constraints; buttons >= ~44 px.
 - S [H] Respect safe areas (top bar, notch): use `ScreenGui.ScreenInsets`, test on a notched device/emulator.
 - S [H] Mobile on-screen action buttons via `ContextActionService:BindAction` with `createTouchButton`; plain `UserInputService` keys are fine for desktop-only actions.

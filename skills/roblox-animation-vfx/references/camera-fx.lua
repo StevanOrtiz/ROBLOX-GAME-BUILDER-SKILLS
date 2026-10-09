@@ -28,7 +28,7 @@ end
 
 -- Shake through Humanoid.CameraOffset: no fighting the camera script, no drift.
 function CameraFx.Shake(newIntensity: number, newDuration: number)
-	if not CameraFx.Enabled then return end
+	if not CameraFx.Enabled or newDuration <= 0 then return end
 	if shaking then
 		local remaining = intensity * (1 - elapsed / duration)
 		if newIntensity <= remaining then return end -- keep the stronger shake

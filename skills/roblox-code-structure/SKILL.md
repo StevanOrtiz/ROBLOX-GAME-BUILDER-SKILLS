@@ -40,7 +40,7 @@ Main calls all `Init`, then all `Start`. Services never `require` each other at 
 - **Server authoritative.** Client sends *intent*, server validates type, range, ownership, cooldown, then acts. Never trust client numbers (prices, damage, positions).
 - **Config.** Every tunable in `Shared/Config`. No magic numbers in logic.
 - **Pure logic** (math, rules, formatting) in its own module with no Roblox side effects, so it is reusable and testable.
-- **Remotes:** named `VerbNoun` (`BuyItem`, `UpdateCoins`). Prefer RemoteEvent. Never `InvokeClient`. One handler per remote, validates first line.
+- **Remotes:** handler params typed `unknown` and checked with `typeof` (see luau-language). Named `VerbNoun` (`BuyItem`, `UpdateCoins`). Prefer RemoteEvent. Never `InvokeClient`. One handler per remote, validates first line.
 - **State flow:** server owns state -> pushes to client (remote/attribute) -> controller renders. UI never owns truth.
 - **Naming:** modules, classes, types, instances and module public functions (`Init`, `Start`, `Register`) PascalCase; locals, params, local functions camelCase; private fields `_name`; constants UPPER_SNAKE inside Config. More Luau rules in luau-language.
 - **Luau:** `--!strict`, type public function signatures, `task.wait/spawn/delay` (not `wait`), `:GetService`, events over polling loops.

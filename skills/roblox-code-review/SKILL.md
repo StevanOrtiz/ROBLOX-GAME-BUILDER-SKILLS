@@ -12,7 +12,7 @@ Principle: **scan with code, read with judgment.** One `execute_luau` replaces d
 2. **Triage.** Order: remote_unvalidated > server_logic_exposed > placement > unstored_connect > multi_hot_connect > rest. Read only those lines (`script_read` on the range) and drop false positives.
 3. **Architecture pass (judgment).** Read at most: the bootstrap(s), one Service, one Controller, `Config`. Use `roblox-architecture` as the yardstick.
 4. **Report** (format below).
-5. **Offer fixes.** Quick wins can be applied with `multi_edit` after the user agrees. Larger changes: propose, don't start.
+5. **Fix.** Apply Quick wins directly with `multi_edit` (user preference: act, then report). Structural/architectural changes: propose in 3 lines and wait.
 
 If the scan can't read `Source` (reported as `unreadable`), fall back to `script_grep` per category and say so.
 No MCP: ask for the Explorer listing and the 3-5 key scripts pasted. Review only those.
@@ -67,7 +67,7 @@ Top fixes
 (up to 5)
 
 Counts: deprecated X | unvalidated remotes X | leaks? X | circular X | duplicates X | >300 lines X
-Quick wins (apply now?): ...
+Quick wins applied: ...
 ```
 Each finding: `severity path:line - issue -> fix`. No long prose. Fix guidance: `roblox-architecture` (placement, remotes), `roblox-optimization` (leaks, hot paths), `luau-language` (deprecated APIs, types), `roblox-code-structure` (module shape).
 
@@ -75,4 +75,4 @@ Each finding: `severity path:line - issue -> fix`. No long prose. Fix guidance: 
 - **Quick (< 30 min):** `wait` -> `task.wait`, cache services, parent-last, named constants, annotations, `GetService`.
 - **Structural (1-3 h):** extract duplicates, move scripts to the right container, validate remotes, store/disconnect connections, split > 300-line scripts.
 - **Architectural (days):** Services/Controllers + bootstrap loader, break circular requires, data layer over DataStore, state management.
-Apply only Quick wins, and only after the user agrees; keep each change minimal (`multi_edit`), then re-run the scan once to confirm counts dropped.
+Apply Quick wins directly, each change minimal (`multi_edit`), then re-run the scan once to confirm counts dropped. Never auto-apply structural or architectural changes.
