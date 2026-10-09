@@ -7,7 +7,7 @@ description: Standard structure and conventions for Roblox Luau game code - wher
 
 Existing project structure wins. Match it. Below is the default for new work.
 
-## Layout (no loose scripts)
+## Layout (no loose scripts; full placement + communication rules in roblox-architecture)
 ```
 ReplicatedStorage
   Shared/         Config, Types, Util   (pure, no side effects)

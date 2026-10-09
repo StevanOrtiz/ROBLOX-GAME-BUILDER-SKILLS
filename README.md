@@ -9,6 +9,7 @@ Lean skills for building Roblox games through the Studio MCP.
 | `roblox-code-structure` | Default Luau layout, server-authoritative remotes, Config, cleanup |
 | `roblox-ui-live` | UI as live named instances in StarterGui + controller. Style comes from your prompt |
 | `roblox-optimization` | Measure-first perf rules: per-frame, memory, network, mobile. Includes Scheduler, Cleaner, ObjectPool |
+| `roblox-architecture` | Where things go, script types, which remote to use, module wiring, anti-patterns. Studio+MCP, no Rojo |
 
 ## Install
 ```
