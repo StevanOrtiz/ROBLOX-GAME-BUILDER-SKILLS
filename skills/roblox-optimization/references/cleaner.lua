@@ -30,8 +30,8 @@ function Cleaner.Clean(self: Cleaner)
 			(item :: () -> ())()
 		elseif kind == "thread" then
 			task.cancel(item)
-		elseif kind == "table" and item.Destroy then
-			item:Destroy()
+		elseif kind == "table" and (item :: any).Destroy then
+			(item :: any):Destroy()
 		end
 	end
 end
