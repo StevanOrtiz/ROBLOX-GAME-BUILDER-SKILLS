@@ -21,7 +21,7 @@ Lean skills for building Roblox games through the **built-in Studio MCP** (no Ro
 bash install.sh        # macOS / Linux / Git Bash
 ./install.ps1          # Windows PowerShell (untested)
 ```
-It copies the skills to `~/.claude/skills`, the output style to `~/.claude/output-styles`, and adds a marked block to `~/.claude/CLAUDE.md` (re-running replaces only that block).
+It copies the skills to `~/.claude/skills`, the output style to `~/.claude/output-styles`, and adds a marked block to `~/.claude/CLAUDE.md` (re-running replaces only that block). It also sets `"outputStyle": "ihaveadhd"` in `~/.claude/settings.json` only if no output style is set yet.
 
 ## Make `ihaveadhd` always on (use all three; each covers a gap)
 1. **CLAUDE.md block** (installed above): loaded every session, tells Claude to follow the style and consult the router.

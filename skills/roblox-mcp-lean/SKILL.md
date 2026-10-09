@@ -40,9 +40,9 @@ StarterGui.ShopGui | ScreenGui | shop UI (controller: Controllers.ShopController
 - Batch independent MCP calls in one turn.
 
 ## 5. Test budget
-- Think and check statically first (names, paths, types) before touching Studio.
-- Playtest once at the end of a feature, not after each edit.
-- `get_console_output` once, and design prints with a tag (`[Shop] ...`) so you read only your lines.
+- **Playtest only when the user asks** (user preference). Never start `start_stop_play` on your own.
+- Verify statically: names/paths/types by reasoning, then the build call's own assertions (Edit datamodel). Report "not playtested" in the one-line summary when relevant.
+- When asked to test: one playtest, `get_console_output` once; give prints a tag (`[Shop] ...`) so you read only your lines.
 - `screen_capture` only if the question is visual. Max 1 per task.
 - `get_studio_state` before play-only tools. Don't assume mode.
 

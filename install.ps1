@@ -14,5 +14,17 @@ $text = [regex]::Replace($text, "(?s)<!-- roblox-skills:begin -->.*?<!-- roblox-
 $block = Get-Content -Raw "$Src\claude-md-block.md"
 Set-Content -Path $cm -Value ($text.TrimEnd() + "`n`n" + $block) -NoNewline
 
+# set the global output style only if the user has not set one
+$settings = Join-Path $Dest "settings.json"
+if (-not (Test-Path $settings)) { Set-Content -Path $settings -Value "{}" }
+$obj = Get-Content -Raw $settings | ConvertFrom-Json
+if ($null -eq $obj.PSObject.Properties["outputStyle"]) {
+    $obj | Add-Member -NotePropertyName outputStyle -NotePropertyValue "ihaveadhd"
+    $obj | ConvertTo-Json -Depth 20 | Set-Content -Path $settings
+    Write-Host "outputStyle set to ihaveadhd"
+} else {
+    Write-Host "outputStyle already set to $($obj.outputStyle) - left unchanged"
+}
+
 Write-Host "Installed to $Dest"
-Write-Host "Next: in Claude Code run  /output-style ihaveadhd  then restart Claude Code."
+Write-Host "Restart Claude Code to load the skills and the output style."

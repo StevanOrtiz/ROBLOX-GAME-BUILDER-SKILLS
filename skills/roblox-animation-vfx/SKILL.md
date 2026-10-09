@@ -63,7 +63,7 @@ Read the player's quality with `.Value` of the enums (they are not numbers). Low
 
 ## Via MCP
 1. Static scene (lighting, ambient emitters, atmosphere): one `execute_luau` using the presets file, returns what it set.
-2. Runtime FX: write/patch the client module with `multi_edit`; one playtest, read `[Fx]`-tagged console lines.
+2. Runtime FX: write/patch the client module with `multi_edit`. Playtest only if the user asks; then read `[Fx]`-tagged console lines once.
 3. Record new instance paths in `GAMEMAP.md`. Short report per `ihaveadhd`.
 
 ## Don't

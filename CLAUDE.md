@@ -5,6 +5,7 @@ Follow the `ihaveadhd` skill: shortest possible answer, answer first, no preambl
 ## Roblox work
 - For any Roblox/Luau/Studio request, consult the `roblox-router` skill first and load only the skills it names.
 - Studio MCP: built-in server. Apply changes directly and report in one line; ask only before destructive or irreversible actions.
+- Code, comments, logs and in-game text in English. Don't playtest unless I ask.
 - Games: incremental simulators, tycoon, obby, combat/PvP, RPG. Platforms: mobile, PC and console equally (touch, mouse/keyboard, gamepad).
 - Studio-only workflow, no Rojo. Keep `GAMEMAP.md` current.
 <!-- roblox-skills:end -->

@@ -15,6 +15,22 @@ awk '/<!-- roblox-skills:begin -->/{skip=1} !skip{print} /<!-- roblox-skills:end
 mv "$CM.tmp" "$CM"
 { echo; cat "$SRC/claude-md-block.md"; } >> "$CM"
 
+# set the global output style only if the user has not set one
+SETTINGS="$DEST/settings.json"
+[ -f "$SETTINGS" ] || echo '{}' > "$SETTINGS"
+python3 - "$SETTINGS" <<'PY'
+import json, sys
+path = sys.argv[1]
+with open(path) as f:
+    data = json.load(f)
+if "outputStyle" not in data:
+    data["outputStyle"] = "ihaveadhd"
+    with open(path, "w") as f:
+        json.dump(data, f, indent=2)
+    print("outputStyle set to ihaveadhd")
+else:
+    print("outputStyle already set to", data["outputStyle"], "- left unchanged")
+PY
+
 echo "Installed to $DEST"
-echo "Next: in Claude Code run  /output-style ihaveadhd  (or set \"outputStyle\": \"ihaveadhd\" in $DEST/settings.json)"
-echo "Then restart Claude Code."
+echo "Restart Claude Code to load the skills and the output style."
