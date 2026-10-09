@@ -11,6 +11,7 @@ Lean skills for building Roblox games through the Studio MCP.
 | `roblox-optimization` | Measure-first perf rules: per-frame, memory, network, mobile. Includes Scheduler, Cleaner, ObjectPool |
 | `roblox-architecture` | Where things go, script types, which remote to use, module wiring, anti-patterns. Studio+MCP, no Rojo |
 | `roblox-animation-vfx` | Animator rules, FX presets (data not code), camera shake/cutscene, hit feedback, lighting presets, sound |
+| `luau-language` | Luau gotchas only: strict types, classes that type-check, errors, async, deprecated->replacement |
 
 ## Install
 ```

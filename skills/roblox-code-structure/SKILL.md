@@ -42,7 +42,7 @@ Main calls all `Init`, then all `Start`. Services never `require` each other at 
 - **Pure logic** (math, rules, formatting) in its own module with no Roblox side effects, so it is reusable and testable.
 - **Remotes:** named `VerbNoun` (`BuyItem`, `UpdateCoins`). Prefer RemoteEvent. Never `InvokeClient`. One handler per remote, validates first line.
 - **State flow:** server owns state -> pushes to client (remote/attribute) -> controller renders. UI never owns truth.
-- **Naming:** modules/instances PascalCase; locals/functions camelCase; private fields `_name`; constants UPPER_SNAKE inside Config.
+- **Naming:** modules, classes, types, instances and module public functions (`Init`, `Start`, `Register`) PascalCase; locals, params, local functions camelCase; private fields `_name`; constants UPPER_SNAKE inside Config. More Luau rules in luau-language.
 - **Luau:** `--!strict`, type public function signatures, `task.wait/spawn/delay` (not `wait`), `:GetService`, events over polling loops.
 - **Cleanup:** store connections/threads and release them on player leave or teardown (`Shared/Util/Cleaner`, see roblox-optimization). No leaks per-spawn.
 - **Errors:** no bare `pcall(f)`. `local ok, err = pcall(f); if not ok then warn("[Tag] "..tostring(err)) end`. Tag every log line `[Feature]`.
